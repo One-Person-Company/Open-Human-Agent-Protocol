@@ -360,6 +360,6 @@ MIT License - 见仓库中的 LICENSE 文件
 
 ## 支持
 
-- 📖 [完整文档](../../SDK.md)
+- 📖 [完整文档](/zh/sdk)
 - 💬 [GitHub 讨论](https://github.com/your-org/Open-Human-Agent-Protocol/discussions)
 - 🐛 [问题跟踪](https://github.com/your-org/Open-Human-Agent-Protocol/issues)

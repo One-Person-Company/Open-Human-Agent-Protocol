@@ -360,6 +360,6 @@ MIT License - see LICENSE file in repository
 
 ## Support
 
-- 📖 [Full Documentation](../../SDK.md)
+- 📖 [Full Documentation](/sdk)
 - 💬 [GitHub Discussions](https://github.com/your-org/Open-Human-Agent-Protocol/discussions)
 - 🐛 [Issue Tracker](https://github.com/your-org/Open-Human-Agent-Protocol/issues)
