@@ -1,0 +1,179 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ohap.org/schemas/review.json",
+  "title": "OHAP Review",
+  "description": "Verification report, approvals, or rejection with reasons",
+  "type": "object",
+  "required": ["id", "deliverableId", "reviewer", "decision", "reviewedAt"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique review identifier"
+    },
+    "deliverableId": {
+      "type": "string",
+      "description": "Reference to the deliverable being reviewed"
+    },
+    "taskId": {
+      "type": "string",
+      "description": "Reference to the original task"
+    },
+    "reviewer": {
+      "type": "object",
+      "description": "Entity conducting the review",
+      "required": ["id", "type"],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["initiator", "auditor", "automated", "peer"]
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "decision": {
+      "type": "string",
+      "enum": ["accepted", "rejected", "revision-requested", "escalated"],
+      "description": "Final review decision"
+    },
+    "acceptanceCriteria": {
+      "type": "array",
+      "description": "Assessment of each acceptance criterion",
+      "items": {
+        "type": "object",
+        "required": ["criteriaId", "assessment"],
+        "properties": {
+          "criteriaId": {
+            "type": "string"
+          },
+          "assessment": {
+            "type": "string",
+            "enum": ["pass", "fail", "partial", "not-evaluated"]
+          },
+          "notes": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "array",
+            "description": "References supporting the assessment",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "qualityScore": {
+      "type": "object",
+      "description": "Structured quality assessment",
+      "properties": {
+        "overall": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "dimensions": {
+          "type": "object",
+          "properties": {
+            "completeness": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 5
+            },
+            "accuracy": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 5
+            },
+            "clarity": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 5
+            },
+            "timeliness": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 5
+            }
+          }
+        }
+      }
+    },
+    "feedback": {
+      "type": "object",
+      "properties": {
+        "strengths": {
+          "type": "array",
+          "description": "What was done well",
+          "items": {
+            "type": "string"
+          }
+        },
+        "improvements": {
+          "type": "array",
+          "description": "Areas for improvement",
+          "items": {
+            "type": "string"
+          }
+        },
+        "revisionRequests": {
+          "type": "array",
+          "description": "Specific changes needed if revision requested",
+          "items": {
+            "type": "object",
+            "properties": {
+              "area": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "priority": {
+                "type": "string",
+                "enum": ["required", "preferred", "optional"]
+              }
+            }
+          }
+        }
+      }
+    },
+    "evidenceVerification": {
+      "type": "object",
+      "description": "Assessment of provided evidence",
+      "properties": {
+        "checksumVerified": {
+          "type": "boolean"
+        },
+        "sourcesVerified": {
+          "type": "boolean"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "reviewedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "signature": {
+      "type": "object",
+      "description": "Cryptographic signature for review integrity",
+      "properties": {
+        "algorithm": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "publicKey": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

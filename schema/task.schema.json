@@ -1,0 +1,262 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ohap.org/schemas/task.json",
+  "title": "OHAP Task",
+  "description": "A shared unit of work in the Open Human Agent Protocol",
+  "type": "object",
+  "required": ["id", "version", "title", "objective", "status", "createdAt", "initiator"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique task identifier (UUID recommended)",
+      "pattern": "^[a-zA-Z0-9_-]+$"
+    },
+    "version": {
+      "type": "string",
+      "description": "OHAP protocol version",
+      "enum": ["0.1", "0.2", "0.3"]
+    },
+    "title": {
+      "type": "string",
+      "description": "Short, human-readable task name",
+      "minLength": 3,
+      "maxLength": 200
+    },
+    "objective": {
+      "type": "string",
+      "description": "Clear goal statement describing the shared intent",
+      "minLength": 10,
+      "maxLength": 2000
+    },
+    "status": {
+      "type": "string",
+      "description": "Current task lifecycle state",
+      "enum": ["draft", "open", "offered", "contracted", "in-progress", "delivered", "reviewed", "closed", "cancelled"]
+    },
+    "initiator": {
+      "type": "object",
+      "description": "Entity that created the task (agent or human)",
+      "required": ["id", "type"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Initiator identifier"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["human", "agent", "system"]
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name"
+        },
+        "contact": {
+          "type": "string",
+          "description": "Contact information or endpoint"
+        }
+      }
+    },
+    "inputs": {
+      "type": "array",
+      "description": "Files, links, or data references required for task execution",
+      "items": {
+        "type": "object",
+        "required": ["type", "reference"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["file", "url", "text", "data", "reference"]
+          },
+          "reference": {
+            "type": "string",
+            "description": "URL, file path, or data identifier"
+          },
+          "description": {
+            "type": "string"
+          },
+          "checksum": {
+            "type": "string",
+            "description": "SHA-256 hash for verification"
+          }
+        }
+      }
+    },
+    "constraints": {
+      "type": "object",
+      "description": "Budget, time, tools, and policy limits",
+      "properties": {
+        "budget": {
+          "type": "object",
+          "properties": {
+            "amount": {
+              "type": "number",
+              "minimum": 0
+            },
+            "currency": {
+              "type": "string",
+              "pattern": "^[A-Z]{3}$"
+            }
+          }
+        },
+        "timeline": {
+          "type": "object",
+          "properties": {
+            "deadline": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "estimatedHours": {
+              "type": "number",
+              "minimum": 0
+            },
+            "timezone": {
+              "type": "string",
+              "description": "IANA timezone identifier"
+            }
+          }
+        },
+        "tools": {
+          "type": "array",
+          "description": "Required or restricted tools",
+          "items": {
+            "type": "string"
+          }
+        },
+        "policies": {
+          "type": "array",
+          "description": "Policy requirements (safety, legal, ethical)",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "acceptance": {
+      "type": "object",
+      "description": "Explicit criteria and test methods",
+      "required": ["criteria"],
+      "properties": {
+        "criteria": {
+          "type": "array",
+          "description": "List of acceptance conditions",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["description"],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "testMethod": {
+                "type": "string",
+                "description": "How to verify this criterion"
+              },
+              "priority": {
+                "type": "string",
+                "enum": ["required", "preferred", "optional"]
+              }
+            }
+          }
+        },
+        "reviewProcess": {
+          "type": "string",
+          "description": "How deliverables will be reviewed"
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "description": "Required proof types for verification",
+      "properties": {
+        "required": {
+          "type": "array",
+          "description": "Mandatory evidence types",
+          "items": {
+            "type": "string",
+            "enum": ["worklog", "screenshot", "recording", "artifact", "citation", "signature", "checksum", "other"]
+          }
+        },
+        "optional": {
+          "type": "array",
+          "description": "Optional evidence types",
+          "items": {
+            "type": "string"
+          }
+        },
+        "specifications": {
+          "type": "string",
+          "description": "Detailed evidence requirements"
+        }
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "description": "Data handling rules and redaction expectations",
+      "properties": {
+        "dataClassification": {
+          "type": "string",
+          "enum": ["public", "internal", "confidential", "restricted"]
+        },
+        "consentRequired": {
+          "type": "boolean",
+          "description": "Whether explicit consent is required"
+        },
+        "redactionRules": {
+          "type": "array",
+          "description": "Data elements that must be redacted",
+          "items": {
+            "type": "string"
+          }
+        },
+        "retention": {
+          "type": "string",
+          "description": "Data retention period"
+        }
+      }
+    },
+    "collaboration": {
+      "type": "object",
+      "description": "Collaboration context and shared responsibility",
+      "properties": {
+        "sharedContext": {
+          "type": "string",
+          "description": "Shared understanding and background"
+        },
+        "communicationChannel": {
+          "type": "string",
+          "description": "Primary channel for collaboration"
+        },
+        "updateFrequency": {
+          "type": "string",
+          "description": "Expected update cadence"
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "domain": {
+          "type": "string",
+          "description": "Task domain (design, legal, research, qa, etc.)"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,200 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ohap.org/schemas/contract.json",
+  "title": "OHAP Contract",
+  "description": "Accepted proposal with binding terms and shared commitments",
+  "type": "object",
+  "required": ["id", "taskId", "proposalId", "initiator", "humanPartner", "terms", "createdAt"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique contract identifier"
+    },
+    "taskId": {
+      "type": "string",
+      "description": "Reference to the task"
+    },
+    "proposalId": {
+      "type": "string",
+      "description": "Reference to the accepted proposal"
+    },
+    "initiator": {
+      "type": "object",
+      "description": "Task creator (agent or human)",
+      "required": ["id"],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "signature": {
+          "type": "string",
+          "description": "Cryptographic signature acknowledging terms"
+        }
+      }
+    },
+    "humanPartner": {
+      "type": "object",
+      "description": "Human performing the work",
+      "required": ["id"],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "signature": {
+          "type": "string",
+          "description": "Cryptographic signature accepting terms"
+        }
+      }
+    },
+    "terms": {
+      "type": "object",
+      "description": "Agreed upon terms and shared commitments",
+      "required": ["scope", "timeline"],
+      "properties": {
+        "scope": {
+          "type": "string",
+          "description": "Agreed work scope"
+        },
+        "timeline": {
+          "type": "object",
+          "required": ["deadline"],
+          "properties": {
+            "startDate": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "deadline": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "milestones": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "compensation": {
+          "type": "object",
+          "properties": {
+            "amount": {
+              "type": "number",
+              "minimum": 0
+            },
+            "currency": {
+              "type": "string",
+              "pattern": "^[A-Z]{3}$"
+            },
+            "paymentSchedule": {
+              "type": "string",
+              "enum": ["upfront", "on-delivery", "milestone-based", "other"]
+            }
+          }
+        },
+        "acceptanceCriteria": {
+          "type": "array",
+          "description": "Finalized acceptance criteria",
+          "items": {
+            "type": "object"
+          }
+        },
+        "evidenceRequirements": {
+          "type": "array",
+          "description": "Required evidence for verification",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "sharedResponsibilities": {
+      "type": "object",
+      "description": "Mutual commitments and collaboration expectations",
+      "properties": {
+        "initiatorCommits": {
+          "type": "array",
+          "description": "What the initiator commits to provide",
+          "items": {
+            "type": "string"
+          }
+        },
+        "humanPartnerCommits": {
+          "type": "array",
+          "description": "What the human partner commits to deliver",
+          "items": {
+            "type": "string"
+          }
+        },
+        "communicationProtocol": {
+          "type": "string",
+          "description": "How parties will communicate and share updates"
+        }
+      }
+    },
+    "disputeResolution": {
+      "type": "object",
+      "description": "Process for handling disagreements",
+      "properties": {
+        "method": {
+          "type": "string",
+          "enum": ["negotiation", "mediation", "arbitration", "escalation"]
+        },
+        "arbitrator": {
+          "type": "string",
+          "description": "Third party who can resolve disputes"
+        }
+      }
+    },
+    "amendments": {
+      "type": "array",
+      "description": "Changes made to the contract after signing",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "description": {
+            "type": "string"
+          },
+          "agreedBy": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "completed", "cancelled", "disputed"],
+      "default": "active"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

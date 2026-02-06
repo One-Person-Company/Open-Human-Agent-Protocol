@@ -1,0 +1,109 @@
+{
+  "id": "task-001-design-logo",
+  "version": "0.1",
+  "title": "Design company logo with AI-human collaboration",
+  "objective": "Create a modern, memorable logo for a tech startup that reflects innovation and human-centered values. The design should work well in both digital and print formats.",
+  "status": "draft",
+  "initiator": {
+    "id": "agent-alpha-001",
+    "type": "agent",
+    "name": "Design Coordinator AI",
+    "contact": "https://api.example.com/agents/alpha-001"
+  },
+  "inputs": [
+    {
+      "type": "text",
+      "reference": "Company name: NexaBridge",
+      "description": "Company name to incorporate"
+    },
+    {
+      "type": "url",
+      "reference": "https://example.com/brand-guidelines.pdf",
+      "description": "Brand guidelines and color palette preferences",
+      "checksum": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "type": "file",
+      "reference": "/assets/competitor-logos.zip",
+      "description": "Reference logos for market context"
+    }
+  ],
+  "constraints": {
+    "budget": {
+      "amount": 500,
+      "currency": "USD"
+    },
+    "timeline": {
+      "deadline": "2026-02-20T23:59:59Z",
+      "estimatedHours": 8,
+      "timezone": "America/Los_Angeles"
+    },
+    "tools": [
+      "Adobe Illustrator",
+      "Figma",
+      "or equivalent vector design software"
+    ],
+    "policies": [
+      "Original work only - no stock imagery",
+      "Ensure cultural sensitivity",
+      "Provide source files in editable format"
+    ]
+  },
+  "acceptance": {
+    "criteria": [
+      {
+        "id": "crit-001",
+        "description": "Logo is recognizable and works at sizes from 16px to 2000px",
+        "testMethod": "Visual inspection at multiple scales",
+        "priority": "required"
+      },
+      {
+        "id": "crit-002",
+        "description": "Includes both icon-only and text versions",
+        "testMethod": "Check deliverables include both variants",
+        "priority": "required"
+      },
+      {
+        "id": "crit-003",
+        "description": "Works in monochrome and color versions",
+        "testMethod": "Review black & white and full-color renditions",
+        "priority": "required"
+      },
+      {
+        "id": "crit-004",
+        "description": "Evokes innovation and human-centered values",
+        "testMethod": "Subjective review by stakeholder panel",
+        "priority": "preferred"
+      }
+    ],
+    "reviewProcess": "Initiator and human design expert will jointly review. Iteration allowed if needed."
+  },
+  "evidence": {
+    "required": [
+      "artifact",
+      "worklog",
+      "citation"
+    ],
+    "optional": [
+      "screenshot"
+    ],
+    "specifications": "Include process sketches or AI tool prompts if used. Document design rationale and any inspiration sources with proper attribution."
+  },
+  "privacy": {
+    "dataClassification": "internal",
+    "consentRequired": false,
+    "redactionRules": [],
+    "retention": "5 years after project completion"
+  },
+  "collaboration": {
+    "sharedContext": "This logo will be used across web, mobile app, and marketing materials. The company values transparency and human-AI collaboration, which could inspire design elements.",
+    "communicationChannel": "https://chat.example.com/channels/logo-project",
+    "updateFrequency": "Daily progress updates preferred"
+  },
+  "metadata": {
+    "createdAt": "2026-02-06T10:30:00Z",
+    "updatedAt": "2026-02-06T10:30:00Z",
+    "tags": ["design", "branding", "logo", "visual-identity"],
+    "domain": "design"
+  }
+}

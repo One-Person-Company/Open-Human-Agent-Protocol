@@ -1,0 +1,177 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ohap.org/schemas/deliverable.json",
+  "title": "OHAP Deliverable",
+  "description": "Output artifacts, evidence, and completion metadata",
+  "type": "object",
+  "required": ["id", "taskId", "contractId", "submitter", "artifacts", "evidence", "submittedAt"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique deliverable identifier"
+    },
+    "taskId": {
+      "type": "string",
+      "description": "Reference to the task"
+    },
+    "contractId": {
+      "type": "string",
+      "description": "Reference to the contract"
+    },
+    "submitter": {
+      "type": "object",
+      "description": "Human partner who completed the work",
+      "required": ["id"],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "description": "Output files and deliverable items",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["type", "reference"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["file", "url", "text", "code", "document", "media", "other"]
+          },
+          "reference": {
+            "type": "string",
+            "description": "URL, file path, or content"
+          },
+          "description": {
+            "type": "string"
+          },
+          "checksum": {
+            "type": "string",
+            "description": "SHA-256 hash for verification"
+          },
+          "mimeType": {
+            "type": "string"
+          },
+          "size": {
+            "type": "integer",
+            "description": "Size in bytes"
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "description": "Proof of work and verification data",
+      "required": ["items"],
+      "properties": {
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["type", "reference"],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["worklog", "screenshot", "recording", "citation", "signature", "checksum", "other"]
+              },
+              "reference": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        },
+        "provenance": {
+          "type": "object",
+          "description": "Audit trail and attribution",
+          "properties": {
+            "sources": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "reference": {
+                    "type": "string"
+                  },
+                  "accessed": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              }
+            },
+            "tools": {
+              "type": "array",
+              "description": "Tools and software used",
+              "items": {
+                "type": "string"
+              }
+            },
+            "contributors": {
+              "type": "array",
+              "description": "Others who contributed",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "role": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "completionNotes": {
+      "type": "string",
+      "description": "Summary of work done and any deviations from plan"
+    },
+    "acceptanceMet": {
+      "type": "array",
+      "description": "Which acceptance criteria were addressed",
+      "items": {
+        "type": "object",
+        "properties": {
+          "criteriaId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["met", "partially-met", "not-met", "not-applicable"]
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "submittedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["submitted", "under-review", "accepted", "rejected", "revision-requested"],
+      "default": "submitted"
+    }
+  }
+}
