@@ -1,0 +1,52 @@
+{
+  "name": "@ohap/js-sdk",
+  "version": "0.1.0",
+  "description": "JavaScript/TypeScript SDK for the Open Human Agent Protocol",
+  "type": "module",
+  "main": "./dist/ohap.cjs",
+  "module": "./dist/ohap.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/ohap.mjs",
+      "require": "./dist/ohap.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "ohap",
+    "human-ai-collaboration",
+    "protocol",
+    "sdk",
+    "javascript",
+    "typescript"
+  ],
+  "author": "OHAP Community",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/Open-Human-Agent-Protocol.git",
+    "directory": "javascript"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/node": "^20.10.0",
+    "terser": "^5.24.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.10",
+    "vite-plugin-dts": "^3.7.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "type-check": "tsc --noEmit",
+    "test": "echo \"Tests coming soon\""
+  }
+}
