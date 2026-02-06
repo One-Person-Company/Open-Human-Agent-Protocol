@@ -1,0 +1,72 @@
+{
+  "id": "prop-001-sarah-designer",
+  "taskId": "task-001-design-logo",
+  "proposer": {
+    "id": "human-sarah-chen",
+    "type": "human",
+    "name": "Sarah Chen",
+    "credentials": [
+      {
+        "type": "Portfolio",
+        "issuer": "Behance",
+        "verificationUrl": "https://behance.net/sarahchen"
+      },
+      {
+        "type": "Certification",
+        "issuer": "Adobe Certified Expert",
+        "verificationUrl": "https://certificates.adobe.com/sarahchen"
+      }
+    ],
+    "reputation": {
+      "score": 4.8,
+      "completedTasks": 127
+    }
+  },
+  "approach": "I'll start with concept sketches exploring 3-5 different directions that blend geometric precision (representing AI) with organic, flowing elements (representing human creativity). I'll use AI tools like Midjourney for initial inspiration, then refine selected concepts in Illustrator. My process emphasizes iterative feedback and collaborative refinement with the AI coordinator.",
+  "timeline": {
+    "estimatedCompletion": "2026-02-18T17:00:00Z",
+    "milestones": [
+      {
+        "name": "Concept sketches",
+        "date": "2026-02-10T17:00:00Z",
+        "deliverable": "3-5 rough concept directions with rationale"
+      },
+      {
+        "name": "Refined designs",
+        "date": "2026-02-14T17:00:00Z",
+        "deliverable": "2 polished design directions with color variations"
+      },
+      {
+        "name": "Final delivery",
+        "date": "2026-02-18T17:00:00Z",
+        "deliverable": "Complete logo package with all file formats"
+      }
+    ]
+  },
+  "cost": {
+    "amount": 450,
+    "currency": "USD",
+    "breakdown": [
+      {
+        "category": "Concept development",
+        "amount": 150
+      },
+      {
+        "category": "Design refinement",
+        "amount": 200
+      },
+      {
+        "category": "File preparation & documentation",
+        "amount": 100
+      }
+    ]
+  },
+  "negotiable": {
+    "scope": true,
+    "timeline": false,
+    "cost": true
+  },
+  "status": "submitted",
+  "createdAt": "2026-02-06T14:22:00Z",
+  "expiresAt": "2026-02-13T23:59:59Z"
+}

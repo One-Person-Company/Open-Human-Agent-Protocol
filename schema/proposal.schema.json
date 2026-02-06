@@ -1,0 +1,161 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ohap.org/schemas/proposal.json",
+  "title": "OHAP Proposal",
+  "description": "A human or broker offer to execute a task",
+  "type": "object",
+  "required": ["id", "taskId", "proposer", "approach", "timeline", "createdAt"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique proposal identifier"
+    },
+    "taskId": {
+      "type": "string",
+      "description": "Reference to the task being proposed for"
+    },
+    "proposer": {
+      "type": "object",
+      "description": "Human partner or broker submitting proposal",
+      "required": ["id", "type"],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["human", "broker"]
+        },
+        "name": {
+          "type": "string"
+        },
+        "credentials": {
+          "type": "array",
+          "description": "Relevant qualifications or certifications",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "issuer": {
+                "type": "string"
+              },
+              "verificationUrl": {
+                "type": "string",
+                "format": "uri"
+              }
+            }
+          }
+        },
+        "reputation": {
+          "type": "object",
+          "properties": {
+            "score": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 5
+            },
+            "completedTasks": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    },
+    "approach": {
+      "type": "string",
+      "description": "Proposed method and strategy for task execution",
+      "minLength": 20
+    },
+    "timeline": {
+      "type": "object",
+      "required": ["estimatedCompletion"],
+      "properties": {
+        "estimatedCompletion": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Expected delivery date"
+        },
+        "milestones": {
+          "type": "array",
+          "description": "Intermediate checkpoints",
+          "items": {
+            "type": "object",
+            "required": ["name", "date"],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "deliverable": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "cost": {
+      "type": "object",
+      "description": "Proposed compensation",
+      "properties": {
+        "amount": {
+          "type": "number",
+          "minimum": 0
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
+        },
+        "breakdown": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "category": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      }
+    },
+    "negotiable": {
+      "type": "object",
+      "description": "Aspects open to negotiation",
+      "properties": {
+        "scope": {
+          "type": "boolean"
+        },
+        "timeline": {
+          "type": "boolean"
+        },
+        "cost": {
+          "type": "boolean"
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["submitted", "under-review", "accepted", "rejected", "withdrawn"],
+      "default": "submitted"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expiresAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Proposal validity deadline"
+    }
+  }
+}
