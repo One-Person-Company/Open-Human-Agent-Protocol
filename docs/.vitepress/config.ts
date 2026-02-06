@@ -2,8 +2,7 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  base: "/ohap/",
-  srcDir: "doc",
+  base: "/Open-Human-Agent-Protocol/",
   locales: {
     root: {
       label: "English",

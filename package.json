@@ -1,31 +1,8 @@
 {
-  "name": "@ohap/sdk",
+  "name": "@ohap/workspace",
   "version": "0.1.0",
-  "description": "JavaScript/TypeScript SDK for the Open Human Agent Protocol",
+  "description": "Open Human Agent Protocol - Documentation and Schema Repository",
   "type": "module",
-  "main": "./dist/ohap.cjs",
-  "module": "./dist/ohap.mjs",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/ohap.mjs",
-      "require": "./dist/ohap.cjs",
-      "types": "./dist/index.d.ts"
-    }
-  },
-  "files": [
-    "dist",
-    "schema",
-    "README.md",
-    "LICENSE"
-  ],
-  "keywords": [
-    "ohap",
-    "human-ai-collaboration",
-    "protocol",
-    "sdk",
-    "fusion-workflow"
-  ],
   "author": "OHAP Community",
   "license": "MIT",
   "repository": {
@@ -33,26 +10,20 @@
     "url": "https://github.com/your-org/Open-Human-Agent-Protocol.git"
   },
   "devDependencies": {
-    "@types/bun": "latest",
     "@types/node": "^20.10.0",
     "ajv": "^8.12.0",
     "ajv-cli": "^5.0.0",
-    "terser": "^5.24.0",
-    "typescript": "^5.3.3",
-    "vite": "^5.0.10",
-    "vite-plugin-dts": "^3.7.0",
     "vitepress": "^2.0.0-alpha.16"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "docs:dev": "vitepress dev doc",
-    "docs:build": "vitepress build doc",
-    "docs:preview": "vitepress preview doc",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
     "schema:validate": "ajv validate -s schema/task.schema.json -d schema/examples/task-example.json && ajv validate -s schema/proposal.schema.json -d schema/examples/proposal-example.json && ajv validate -s schema/deliverable.schema.json -d schema/examples/deliverable-example.json",
-    "schema:test": "npm run schema:validate",
-    "test": "echo \"Tests coming soon\"",
-    "prepublishOnly": "npm run build"
-  }
+    "schema:test": "npm run schema:validate"
+  },
+  "workspaces": [
+    "javascript",
+    "."
+  ]
 }
